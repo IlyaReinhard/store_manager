@@ -1,0 +1,7 @@
+venv
+templates
+.git
+.idea
+manage.py
+db.sqlite3
+
