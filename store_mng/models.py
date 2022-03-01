@@ -7,7 +7,7 @@ class Product(models.Model):
     price_of_kg = models.FloatField(verbose_name='Цена (руб) за 1 кг(л)')
     making_date = models.DateField(null=True, blank=True, verbose_name='Дата изготовления')
     expiration_date = models.SmallIntegerField(null=True, blank=True, verbose_name='Срок годности (количество суток)')
-    deliveries = models.ManyToManyField('Delivery')
+    cat = models.ForeignKey('Category_of_product', on_delete = models.PROTECT, null=True)
 
     @property
     def produced_before(self):
@@ -25,5 +25,9 @@ class Product(models.Model):
     def __str__(self):
         return self.title_of_product
 
-class Delivery(models.Model):
-    delivery_date = models.DateField(null=True, blank=True, verbose_name='Дата поставки')
+
+class Category_of_product(models.Model):
+    name = models.CharField(max_length=100, db_index=True, verbose_name='Категория продукта')
+
+    def __str__(self):
+        return self.name
