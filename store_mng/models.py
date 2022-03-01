@@ -7,7 +7,7 @@ class Product(models.Model):
     price_of_kg = models.FloatField(verbose_name='Цена (руб) за 1 кг(л)')
     making_date = models.DateField(null=True, blank=True, verbose_name='Дата изготовления')
     expiration_date = models.SmallIntegerField(null=True, blank=True, verbose_name='Срок годности (количество суток)')
-
+    deliveries = models.ManyToManyField('Delivery')
 
     @property
     def produced_before(self):
@@ -16,7 +16,7 @@ class Product(models.Model):
         date_of_all = self.making_date + expire_days
         return date_of_all
 
-    
+
 
     class Meta:
         verbose_name_plural = 'Продукты'
@@ -25,3 +25,5 @@ class Product(models.Model):
     def __str__(self):
         return self.title_of_product
 
+class Delivery(models.Model):
+    delivery_date = models.DateField(null=True, blank=True, verbose_name='Дата поставки')
